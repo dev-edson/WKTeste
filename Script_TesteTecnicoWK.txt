@@ -1,0 +1,130 @@
+CREATE DATABASE `testewk` /*!40100 COLLATE 'utf8mb4_bin' */
+
+CREATE TABLE `clientes` (
+	`idcliente` INT(11) NOT NULL AUTO_INCREMENT,
+	`nomeCliente` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_bin',
+	`cidadeCliente` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_bin',
+	`UFCliente` VARCHAR(2) NOT NULL COLLATE 'utf8mb4_bin',
+	INDEX `Index 1` (`idcliente`) USING BTREE
+)
+COLLATE='utf8mb4_bin'
+ENGINE=InnoDB
+AUTO_INCREMENT=26
+;
+
+CREATE TABLE `produtos` (
+	`idproduto` INT(11) NOT NULL AUTO_INCREMENT,
+	`produto_descricao` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`produto_precovenda` DOUBLE NOT NULL,
+	PRIMARY KEY (`idproduto`) USING BTREE
+)
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=30
+;
+
+CREATE TABLE `pedidos` (
+	`idpedido` INT(11) NOT NULL AUTO_INCREMENT,
+	`dt_emissao` DATE NULL DEFAULT NULL,
+	`cliente` INT(11) NOT NULL,
+	`valor_total` DOUBLE NULL DEFAULT NULL,
+	PRIMARY KEY (`idpedido`) USING BTREE,
+	INDEX `fk_clientes_idx` (`cliente`) USING BTREE,
+	CONSTRAINT `fk_clientes` FOREIGN KEY (`cliente`) REFERENCES `testewk`.`clientes` (`idcliente`) ON UPDATE RESTRICT ON DELETE RESTRICT
+)
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=91
+;
+
+CREATE TABLE `pedidos_itens` (
+	`iditem` INT(11) NOT NULL AUTO_INCREMENT,
+	`pedido` INT(11) NOT NULL,
+	`produto` INT(11) NOT NULL,
+	`qtd` INT(11) NOT NULL,
+	`valor_unitario` DOUBLE NOT NULL,
+	`valor_total` DOUBLE NOT NULL,
+	PRIMARY KEY (`iditem`) USING BTREE,
+	INDEX `fk_pedido_idx` (`pedido`) USING BTREE,
+	INDEX `fk_produto_idx` (`produto`) USING BTREE,
+	CONSTRAINT `fk_pedido` FOREIGN KEY (`pedido`) REFERENCES `testewk`.`pedidos` (`idpedido`) ON UPDATE RESTRICT ON DELETE CASCADE,
+	CONSTRAINT `fk_produto` FOREIGN KEY (`produto`) REFERENCES `testewk`.`produtos` (`idproduto`) ON UPDATE RESTRICT ON DELETE RESTRICT
+)
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=32
+;
+
+---------------------------------------------------------
+INSERT INTO Clientes 
+(nomeCliente, cidadeCliente, ufCliente) 
+VALUES 
+('Sergio Montagner' , 'Sao Francisco', 'AM'),
+('Maria da Fe'      , 'Sao Francisco', 'AM'),
+('Pedro da Silva '  , 'Manaus', 'AM'),
+('Joao Felipe Silva', 'Manaus', 'AM'),
+('Maria Teixeira'   , 'Manaus', 'AM'),
+('Davi Pereira     ', 'Manaus', 'AM'),
+('David Lucas'      , 'Manaus', 'AM'),
+('Raimundo Soares'  , 'Barcelos', 'AM'),
+('Beatriz Santana'  , 'Barcelos', 'AM'),
+('Mario da Rocha'   , 'Barcelos', 'AM'),
+('Esther Amancio'   , 'Barcelos', 'AM'),
+('Felipe Santos'    , 'Barcelos', 'AM'),
+('Carlos Moreira'   , 'Fortaleza', 'CE'),
+('Lucio Mauro'      , 'Fortaleza', 'CE'),
+('Luciano Hulk'     , 'Fortaleza', 'CE'),
+('Maria Angelica'   , 'Fortaleza', 'CE'),
+('Sebastiana Araujo', 'Rio de Janeiro', 'RJ'),
+('Ana Maria Pereira', 'Rio de Janeiro', 'RJ'),
+('Tonico Januario  ', 'Rio de Janeiro', 'RJ'),
+('Marieta Severo'   , 'Rio de Janeiro', 'RJ'),
+('Armando Nogueira' , 'Rio de Janeiro', 'RJ');
+
+----------------------------------------------------------
+
+INSERT INTO produtos 
+(produto_descricao, produto_precovenda) 
+VALUES 
+('BICICLETA CALOI' , 850),
+('BICICLETA PRINCE BIKE' , 650),
+('PATINS ' , 250),
+('MEIA MASCULINA' , 20),
+('MEIA FEMENINA' , 20),
+('SANDALIA HAVAIANA ' , 42),
+('BOLA DE VOLEI' , 40),
+('LUVA GOLEIRO' , 120),
+('TORNOZELEIRA ' , 60),
+('PATINETE HOMEM DE FERRO' , 120),
+('PATINETE HOMEM ARANHA' , 120),
+('PATINETE HULK ' , 120),
+('MESA PING PONG' , 850),
+('MESA BILHAR' , 1650),
+('BOLA GOLF BRANCA ' , 20),
+('BOLA GOLF AMARELA' , 20),
+('BANCO SUPINO' , 200),
+('PESO 10KG ' , 42),
+('PESO 15KG' , 40),
+('PESO 50KG' , 120),
+('BARRACA ACAMPAMENTO 2 M ' , 160),
+('TENIS NKE' , 120),
+('TENIS ALLSTAR' , 160);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
